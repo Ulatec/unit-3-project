@@ -35,75 +35,75 @@ public class UserTest {
     public void onlyAuthorCanAcceptAnswers() throws Exception{
         thrown.expect(AnswerAcceptanceException.class);
         thrown.expectMessage("Only testUser can accept this answer as it is their question");
-
+        /* Arrange */
         Answer answer = newUser2.answerQuestion(question, "Yes it is.");
-
+        /* Act */
         newUser2.acceptAnswer(answer);
+        /* Assert */
+
     }
     @Test
     public void authorIsNotAbleToVoteOnOwnPosts() throws Exception{
         thrown.expect(VotingException.class);
         thrown.expectMessage("You cannot vote for yourself!");
-
+        /* Arrange */
         Answer answer = newUser.answerQuestion(question, "Yes it is.");
-
+        /* Act */
         newUser.upVote(answer);
+
+        /* Assert */
+
 
     }
     @Test
     public void downVoteReducesReputationByOne() throws Exception{
+        /* Arrange */
         Answer answer = newUser2.answerQuestion(question, "Yes it is.");
-
+        /* Act */
         newUser.downVote(answer);
+        /* Assert */
         assertEquals(-1, newUser2.getReputation());
     }
 
     @Test
     public void authorIsNotAbleToDownVoteOwnPosts() throws Exception{
-        //thrown.expect(VotingException.class);
-        //thrown.expectMessage("You cannot vote for yourself!");
-
+        /* Arrange */
         Answer answer = newUser.answerQuestion(question, "Yes it is.");
         int reputation = newUser.getReputation();
+        /* Act */
         newUser.downVote(answer);
+        /* Assert */
         assertEquals(reputation, newUser.getReputation());
     }
 
     @Test
     public void answererReputationRaisesOnAnswerAccepted() throws Exception{
+        /* Arrange */
         Answer answer = newUser2.answerQuestion(question, "Yes it is.");
-
+        /* Act */
         newUser.acceptAnswer(answer);
-
+        /* Assert */
         assertEquals("Incorrect amount of reputation received", 15, newUser2.getReputation());
 
     }
 
     @Test
     public void answererReputationRaisesOnUpVote() throws Exception{
+        /* Arrange */
        Answer answer = newUser2.answerQuestion(question, "Yes it is.");
-
+        /* Act */
        newUser.upVote(answer);
-
+        /* Assert*/
        assertEquals("Incorrect amount of reputation received", 10, newUser2.getReputation());
 
     }
 
     @Test
     public void questionerReputationRaisesOnUpVote() throws Exception{
-
+        /* Act */
         newUser2.upVote(question);
-
+        /* Assert */
         assertEquals("Incorrect amount of reputation received",5, newUser.getReputation());
 
     }
-    @Test
-    public void getName() throws Exception {
-
-        User user = testBoard.getUsers().get(0);
-        //assertNull(newUser);
-        assertEquals("Incorrect User Name", "testUser", user.getName());
-
-    }
-
 }

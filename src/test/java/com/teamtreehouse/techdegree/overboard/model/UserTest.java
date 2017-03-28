@@ -89,10 +89,12 @@ public class UserTest {
 
     @Test
     public void answererReputationRaisesOnAnswerAccepted() throws Exception{
+        /* Arrange */
+        int reputation = newUser2.getReputation();
         /* Act */
         newUser.acceptAnswer(answer);
         /* Assert */
-        assertEquals("Incorrect amount of reputation received", 15, newUser2.getReputation());
+        assertEquals("Incorrect amount of reputation received", reputation + 15, newUser2.getReputation());
     }
     @Test
     public void answererReputationRaisesOnUpVote() throws Exception{

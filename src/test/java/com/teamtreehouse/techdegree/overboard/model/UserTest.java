@@ -79,10 +79,12 @@ public class UserTest {
     }
     @Test
     public void downVoteReducesReputationByOne() throws Exception{
+        /* Arrange */
+        int reputation = newUser2.getReputation();
         /* Act */
         newUser.downVote(answer);
         /* Assert */
-        assertEquals("Incorrect amount of reputation removed", -1, newUser2.getReputation());
+        assertEquals("Incorrect amount of reputation removed", reputation -1, newUser2.getReputation());
     }
 
     @Test
@@ -94,19 +96,22 @@ public class UserTest {
     }
     @Test
     public void answererReputationRaisesOnUpVote() throws Exception{
+        /* Arrange */
+        int reputation = newUser2.getReputation();
         /* Act */
        newUser.upVote(answer);
         /* Assert*/
-       assertEquals("Incorrect amount of reputation received", 10, newUser2.getReputation());
-
+       assertEquals("Incorrect amount of reputation received", reputation + 10, newUser2.getReputation());
     }
 
     @Test
     public void questionerReputationRaisesOnUpVote() throws Exception{
+        /* Arrange */
+        int reputation = newUser.getReputation();
         /* Act */
         newUser2.upVote(question);
         /* Assert */
-        assertEquals("Incorrect amount of reputation received",5, newUser.getReputation());
+        assertEquals("Incorrect amount of reputation received",reputation + 5, newUser.getReputation());
 
     }
 }

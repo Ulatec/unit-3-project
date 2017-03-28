@@ -47,12 +47,10 @@ public class UserTest {
 
     @Test
     public void authorIsNotAbleToDownVoteOwnPosts() throws Exception{
-        /* Arrange */
-        int reputation = newUser.getReputation();
+        thrown.expect(VotingException.class);
+        thrown.expectMessage("You cannot vote for yourself!");
         /* Act */
-        newUser.downVote(answer);
-        /* Assert */
-        assertEquals(reputation, newUser.getReputation());
+        newUser2.downVote(answer);
     }
 
     @Test

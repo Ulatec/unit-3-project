@@ -7,9 +7,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-
 import static org.junit.Assert.*;
-
 
 public class UserTest {
     private User newUser;
@@ -17,6 +15,7 @@ public class UserTest {
     private Board testBoard;
     private Question question;
     private Answer answer;
+
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
@@ -38,6 +37,7 @@ public class UserTest {
         newUser2.acceptAnswer(answer);
         /* Assert */
     }
+    @Test
     public void authorCanAcceptAnswer() throws Exception{
         /* Act */
         newUser.acceptAnswer(answer);
@@ -47,7 +47,7 @@ public class UserTest {
 
     @Test
     public void authorIsNotAbleToDownVoteOwnPosts() throws Exception{
-
+        /* Arrange */
         int reputation = newUser.getReputation();
         /* Act */
         newUser.downVote(answer);
@@ -64,14 +64,26 @@ public class UserTest {
         /* Assert */
     }
     @Test
+    public void authorIsNotAbleToUpVoteOwnQuestion() throws Exception{
+        thrown.expect(VotingException.class);
+        thrown.expectMessage("You cannot vote for yourself!");
+        /* Act */
+        newUser.upVote(question);
+    }
+    @Test
+    public void authorIsNotAbleToDownVoteOwnQuestion() throws Exception{
+        thrown.expect(VotingException.class);
+        thrown.expectMessage("You cannot vote for yourself!");
+        /* Act */
+        newUser.downVote(question);
+    }
+    @Test
     public void downVoteReducesReputationByOne() throws Exception{
         /* Act */
         newUser.downVote(answer);
         /* Assert */
-        assertEquals(-1, newUser2.getReputation());
+        assertEquals("Incorrect amount of reputation removed", -1, newUser2.getReputation());
     }
-
-
 
     @Test
     public void answererReputationRaisesOnAnswerAccepted() throws Exception{

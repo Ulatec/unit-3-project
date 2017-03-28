@@ -35,6 +35,6 @@ System.out.println("Bob: " + bob.getReputation()); // Bob's answer got upvoted (
 ```
 
 ## TODO
-[ ] TESTS!
+[X] TESTS!
 [ ] Use a data store!
 [ ] Build the website surrounding this awesome model
